@@ -2,6 +2,7 @@ package inf.puc.rio.opus.composite.collector;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +31,11 @@ public class CompositeCollectorMain{
 			
     			// List<Refactoring> refactorings = Arrays.asList(mapper.readValue(new File("dubbo-test.json"), Refactoring[].class));
     		    Refactoring[] refactorings = mapper.readValue(new File("dubbo-test.json"), Refactoring[].class);
-    			System.out.println(refactorings.length);
+    		  
+    		    List<Refactoring> refList = Arrays.asList(refactorings);
+    		    
+    		    
+    			System.out.println(refList.size());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

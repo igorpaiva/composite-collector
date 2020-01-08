@@ -1,0 +1,132 @@
+package inf.puc.rio.opus.composite.model;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+
+public class CompositeHeuristic {
+	
+	
+
+	
+	public List<CompositeRefactoring> getCompositeRangeBased(
+			List<Refactoring> refactorings) {
+		// TODO Auto-generated method stub
+		
+		
+		List<HashSet<Refactoring>> composites = new ArrayList<HashSet<Refactoring>>();
+
+		for (int i = 0; i < refactorings.size(); i++) {
+			// Get class name and package name of current refactoring
+
+			HashSet<Refactoring> composite = new HashSet<Refactoring>();
+			composite.add(refactorings.get(i));
+			for (CodeElement elementi : refactorings.get(i).getElements()) {
+
+				for (int j = 0; j < refactorings.size(); j++) {
+					// Get class name and package name of current refactoring
+
+					if (i != j) {
+
+						for (CodeElement elementj : refactorings.get(j)
+								.getElements()) {
+
+							
+							if (elementi.getClassName()!= null && elementi.getClassName().equals(elementj.getClassName())) {
+
+								composite.add(refactorings.get(j));
+
+							}
+							if(elementi.getClassName() == null && elementi.getPackageName().equals(elementj.getPackageName())){
+								composite.add(refactorings.get(j));
+							}
+							
+						}
+					}
+
+				}
+
+			}
+
+			composites.add(composite);
+
+		}
+
+		for (int b = 0; b < composites.size(); b++) {
+
+			System.out.println("passei aqui " + composites.size());
+			HashSet<Refactoring> batchSet = composites.get(b);
+			
+			for (int ba = b+1; ba < composites.size();) {
+				
+				List<Refactoring> refs1 = new ArrayList<Refactoring>(composites.get(b));
+				List<Refactoring> refs2 = new ArrayList<Refactoring>(composites.get(ba));
+				
+				if (containsRefactorings(refs1, refs2)) {
+			     		
+					composites.remove(ba);
+					System.out.println("passei aqui - Remove " + composites.size());
+					System.out.println("Ba: " + ba);
+					System.out.println("b: " + b);
+						
+				}
+				else{
+					ba++;
+				}
+				
+			}
+
+		}
+
+		List<CompositeRefactoring> compositeList = new ArrayList<CompositeRefactoring>();
+
+		composites.stream().forEach(compositeSet -> {
+
+			if (compositeSet.size() > 1) {
+				CompositeRefactoring compositeRef = new CompositeRefactoring(null,
+						new ArrayList(compositeSet));
+
+				compositeList.add(compositeRef);
+			}
+		});
+
+		return compositeList;
+	}
+	
+	
+	private boolean containsRefactorings(List<Refactoring> refs1, List<Refactoring> refs2){
+           
+		for(int i=0; i<refs1.size(); i++){
+			
+			for(int j=0; j<refs2.size(); j++){
+			   
+				if(refs1.get(i).equals(refs2.get(j))){
+					return true;
+				}
+			
+		    }
+		}
+		return false;
+		
+	}
+	
+	
+
+	
+	public List<CompositeRefactoring> getCommitBasedComposites(List<Refactoring> refactorings) {
+		
+		List<CompositeRefactoring> composites = new ArrayList<CompositeRefactoring>();
+		
+		for(Refactoring ref: refactorings) {
+			
+			CompositeRefactoring composite = new CompositeRefactoring();
+			if(ref.) {
+				
+			}
+		}
+		
+		return composites;
+	}
+
+}
