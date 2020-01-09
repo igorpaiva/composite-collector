@@ -11,6 +11,16 @@ public class CompositeRefactoring {
 	public String type;
 	
 	
+	public CompositeRefactoring(String id, List<Refactoring> refactorings, String type) {
+		
+		this.id = id;
+		this.refactorings = refactorings;
+		this.type = type;
+	}
+	
+	
+	
+	
 	
 	
 	

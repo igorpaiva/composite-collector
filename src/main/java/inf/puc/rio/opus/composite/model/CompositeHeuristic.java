@@ -53,6 +53,49 @@ public class CompositeHeuristic {
 
 		}
 
+		composites = removeDuplicatedRefactoringsInComposites(composites);
+		return getComposites("range-based", composites);
+	}
+	
+	
+
+	
+	public List<CompositeRefactoring> getCommitBasedComposites(List<Refactoring> refactorings) {
+		
+		List<HashSet<Refactoring>> composites = new ArrayList<HashSet<Refactoring>>();
+
+		for (int i = 0; i < refactorings.size(); i++) {
+			// Get class name and package name of current refactoring
+
+			HashSet<Refactoring> composite = new HashSet<Refactoring>();
+			composite.add(refactorings.get(i));
+			for (CodeElement elementi : refactorings.get(i).getElements()) {
+
+				for (int j = 0; j < refactorings.size(); j++) {
+					// Get class name and package name of current refactoring
+
+					if (i != j) {
+
+						
+					}
+
+				}
+
+			}
+
+			composites.add(composite);
+
+		}
+
+		composites = removeDuplicatedRefactoringsInComposites(composites);
+		return getComposites("commit-based", composites);
+	
+	}
+	
+	
+	
+	private List<HashSet<Refactoring>> removeDuplicatedRefactoringsInComposites(List<HashSet<Refactoring>> composites) {
+		
 		for (int b = 0; b < composites.size(); b++) {
 
 			System.out.println("passei aqui " + composites.size());
@@ -76,27 +119,35 @@ public class CompositeHeuristic {
 				}
 				
 			}
+			
+			
 
 		}
-
-		List<CompositeRefactoring> compositeList = new ArrayList<CompositeRefactoring>();
-
-		composites.stream().forEach(compositeSet -> {
-
-			if (compositeSet.size() > 1) {
-				CompositeRefactoring compositeRef = new CompositeRefactoring(null,
-						new ArrayList(compositeSet));
-
-				compositeList.add(compositeRef);
-			}
-		});
-
-		return compositeList;
+		
+		return composites;
 	}
 	
+	private List<CompositeRefactoring> getComposites(String heuristicType, List<HashSet<Refactoring>> composites) {
+		
+		List<CompositeRefactoring> compositeList = new ArrayList<CompositeRefactoring>();
+
+		int i = 0;
+		for(HashSet<Refactoring> compositeSet : composites){
+            i++;
+			if (compositeSet.size() > 1) {
+				CompositeRefactoring compositeRef = new CompositeRefactoring(String.valueOf(i), 
+						                                                    new ArrayList(compositeSet), 
+						                                                    heuristicType);
+				compositeList.add(compositeRef);
+			}
+		}
+		
+		return compositeList;
+		
+	}
 	
 	private boolean containsRefactorings(List<Refactoring> refs1, List<Refactoring> refs2){
-           
+        
 		for(int i=0; i<refs1.size(); i++){
 			
 			for(int j=0; j<refs2.size(); j++){
@@ -109,24 +160,6 @@ public class CompositeHeuristic {
 		}
 		return false;
 		
-	}
-	
-	
-
-	
-	public List<CompositeRefactoring> getCommitBasedComposites(List<Refactoring> refactorings) {
-		
-		List<CompositeRefactoring> composites = new ArrayList<CompositeRefactoring>();
-		
-		for(Refactoring ref: refactorings) {
-			
-			CompositeRefactoring composite = new CompositeRefactoring();
-			if(ref.) {
-				
-			}
-		}
-		
-		return composites;
 	}
 
 }
