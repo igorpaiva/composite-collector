@@ -27,7 +27,7 @@ public class CompositeHeuristic {
 				for (int j = 0; j < refactorings.size(); j++) {
 					// Get class name and package name of current refactoring
 
-					if (i != j) {
+					if (i != j  && sameDeveloper(refactorings.get(i).commit, refactorings.get(j).commit)) {
 
 						for (CodeElement elementj : refactorings.get(j)
 								.getElements()) {
