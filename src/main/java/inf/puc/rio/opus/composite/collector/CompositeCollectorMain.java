@@ -45,9 +45,10 @@ public class CompositeCollectorMain{
    
     		    
     		    List<CompositeRefactoring> compositesRangeBased = heuristic.getCompositeRangeBased(refList, projectHistoric);
+    		    mapper.writeValue(new File("dubbo-compositesRangeBased.json"), compositesRangeBased);
     		    
     		    List<CompositeRefactoring> compositesCommitBased = heuristic.getCommitBasedComposites(refList);
-     		    
+    		    mapper.writeValue(new File("dubbo-compositesCommitBased.json"), compositesCommitBased);
 
     		    
     		    System.out.println(refList.size());
