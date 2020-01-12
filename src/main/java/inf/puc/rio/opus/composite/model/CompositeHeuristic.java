@@ -1,6 +1,7 @@
 package inf.puc.rio.opus.composite.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,10 +10,21 @@ import java.util.Set;
 public class CompositeHeuristic {
 	
 	
-	public List<CompositeRefactoring> getCompositeRangeBased(
-			List<Refactoring> refactorings) {
-		// TODO Auto-generated method stub
+	private ProjectHistoric projectHistoric;
+	private HashMap<String, CommitHistoric> commits; 
+	
+	public CompositeHeuristic(ProjectHistoric historic) {
+	     
+		this.projectHistoric = historic;
 		
+		getCommits();
+	}
+	
+	
+
+	public List<CompositeRefactoring> getCompositeRangeBased(
+		List<Refactoring> refactorings, ProjectHistoric historic) {
+		// TODO Auto-generated method stub
 		
 		List<HashSet<Refactoring>> composites = new ArrayList<HashSet<Refactoring>>();
 
@@ -26,7 +38,8 @@ public class CompositeHeuristic {
 				for (int j = 0; j < refactorings.size(); j++) {
 					// Get class name and package name of current refactoring
 
-					if (i != j  && isSameDeveloper(refactorings.get(i).getCurrentCommit(), refactorings.get(j).getCurrentCommit())) {
+					if (i != j  && isSameDeveloper(refactorings.get(i).getCurrentCommit(), 
+							                       refactorings.get(j).getCurrentCommit())) {
 
 						for (CodeElement elementj : refactorings.get(j)
 								.getElements()) {
@@ -61,11 +74,9 @@ public class CompositeHeuristic {
 	
 	public List<CompositeRefactoring> getCommitBasedComposites(List<Refactoring> refactorings) {
 		
-	
 		Set<String> allCommits = getAllCommitsOfRefactorings(refactorings);
 		
 		List<HashSet<Refactoring>> composites = new ArrayList<HashSet<Refactoring>>();
-
 	
 		for(String commit: allCommits) {
 			
@@ -178,8 +189,26 @@ public class CompositeHeuristic {
 		
 	}
 	
+	private void getCommits() {
+		// TODO Auto-generated method stub
+		
+		for(CommitHistoric commitHistoric : projectHistoric.getCommits()) {
+			
+			commits.put(commitHistoric.getHash(), commitHistoric);
+			
+		}
+		
+	}
+	
+	
 	public boolean isSameDeveloper(Commit commitRefi, Commit commitRefj){
-	    return true;
+	    
+	   CommitHistoric commitHistoricI = commits.get(commitRefi.getCommit());
+	   
+	   CommitHistoric commitHistoricJ = commits.get(commitRefj.getCommit());
+		   
+	   return commitHistoricI.getCommitterName().equals(commitHistoricJ.getCommitterName());
+	   
 	}
 
 }

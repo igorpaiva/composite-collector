@@ -10,6 +10,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import inf.puc.rio.opus.composite.model.CompositeHeuristic;
+import inf.puc.rio.opus.composite.model.CompositeRefactoring;
+import inf.puc.rio.opus.composite.model.ProjectHistoric;
 import inf.puc.rio.opus.composite.model.Refactoring;
 
 /**
@@ -24,18 +27,33 @@ public class CompositeCollectorMain{
     	ObjectMapper mapper = new ObjectMapper();
     	
        //Collect composites 
-    	 //collect commit-based 
-    	//collect scope-based 
+       //collect commit-based 
+       //collect scope-based 
     	
-    	try {
+   
+    	
+        try {
 			
     			// List<Refactoring> refactorings = Arrays.asList(mapper.readValue(new File("dubbo-test.json"), Refactoring[].class));
     		    Refactoring[] refactorings = mapper.readValue(new File("dubbo-test.json"), Refactoring[].class);
     		  
     		    List<Refactoring> refList = Arrays.asList(refactorings);
     		    
+    		    ProjectHistoric projectHistoric =  mapper.readValue(new File("dubbo.json"), ProjectHistoric.class);
     		    
-    			System.out.println(refList.size());
+    		    CompositeHeuristic heuristic = new CompositeHeuristic(projectHistoric);
+   
+    		    
+    		    List<CompositeRefactoring> compositesRangeBased = heuristic.getCompositeRangeBased(refList, projectHistoric);
+    		    
+    		    List<CompositeRefactoring> compositesCommitBased = heuristic.getCommitBasedComposites(refList);
+     		    
+
+    		    
+    		    System.out.println(refList.size());
+    		    
+    		    
+    		    
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
