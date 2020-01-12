@@ -25,7 +25,7 @@ public class CompositeHeuristic {
 				for (int j = 0; j < refactorings.size(); j++) {
 					// Get class name and package name of current refactoring
 
-					if (i != j) {
+					if (i != j  && isSameDeveloper(refactorings.get(i).commit, refactorings.get(j).commit)) {
 
 						for (CodeElement elementj : refactorings.get(j)
 								.getElements()) {
@@ -158,6 +158,10 @@ public class CompositeHeuristic {
 		}
 		return false;
 		
+	}
+	
+	public boolean isSameDeveloper(String commitRefi, commitRefj){
+	    return true;
 	}
 
 }
