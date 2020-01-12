@@ -8,8 +8,6 @@ import java.util.List;
 public class CompositeHeuristic {
 	
 	
-
-	
 	public List<CompositeRefactoring> getCompositeRangeBased(
 			List<Refactoring> refactorings) {
 		// TODO Auto-generated method stub
