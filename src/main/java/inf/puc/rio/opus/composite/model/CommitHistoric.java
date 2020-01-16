@@ -35,8 +35,10 @@ public class CommitHistoric {
 	private String msg;
 	@JsonProperty("modifiedFiles")
 	private List<String> modifiedFiles = null;
+	
 	@JsonProperty("date")
-	private Integer date;
+	private long date;
+
 	@JsonProperty("numberOfModifiedFiles")
 	private Integer numberOfModifiedFiles;
 	@JsonIgnore
@@ -143,12 +145,12 @@ public class CommitHistoric {
 	}
 
 	@JsonProperty("date")
-	public Integer getDate() {
+	public long getDate() {
 		return date;
 	}
 
 	@JsonProperty("date")
-	public void setDate(Integer date) {
+	public void setDate(long date) {
 		this.date = date;
 	}
 

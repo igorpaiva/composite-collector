@@ -16,7 +16,7 @@ public class CompositeHeuristic {
 	public CompositeHeuristic(ProjectHistoric historic) {
 	     
 		this.projectHistoric = historic;
-		
+	
 		getCommits();
 	}
 	
@@ -27,10 +27,11 @@ public class CompositeHeuristic {
 		// TODO Auto-generated method stub
 		
 		List<HashSet<Refactoring>> composites = new ArrayList<HashSet<Refactoring>>();
-
+		
+	
 		for (int i = 0; i < refactorings.size(); i++) {
 			// Get class name and package name of current refactoring
-
+            
 			HashSet<Refactoring> composite = new HashSet<Refactoring>();
 			composite.add(refactorings.get(i));
 			for (CodeElement elementi : refactorings.get(i).getElements()) {
@@ -38,9 +39,13 @@ public class CompositeHeuristic {
 				for (int j = 0; j < refactorings.size(); j++) {
 					// Get class name and package name of current refactoring
 
+				//	System.out.println(refactorings.get(i).getRefactoringId());
+				//	System.out.println(refactorings.get(j).getRefactoringId());
+					
 					if (i != j  && isSameDeveloper(refactorings.get(i).getCurrentCommit(), 
 							                       refactorings.get(j).getCurrentCommit())) {
-
+						
+						
 						for (CodeElement elementj : refactorings.get(j)
 								.getElements()) {
 
@@ -87,6 +92,7 @@ public class CompositeHeuristic {
 				String refCommit = refactorings.get(i).getCurrentCommit().getCommit();
 				
 				if(commit.equals(refCommit)) {
+					
 					composite.add(refactorings.get(i));
 				}	
 
@@ -125,8 +131,7 @@ public class CompositeHeuristic {
 		
 		for (int b = 0; b < composites.size(); b++) {
 
-			System.out.println("passei aqui " + composites.size());
-			HashSet<Refactoring> batchSet = composites.get(b);
+					HashSet<Refactoring> batchSet = composites.get(b);
 			
 			for (int ba = b+1; ba < composites.size();) {
 				
@@ -136,10 +141,7 @@ public class CompositeHeuristic {
 				if (containsRefactorings(refs1, refs2)) {
 			     		
 					composites.remove(ba);
-					System.out.println("passei aqui - Remove " + composites.size());
-					System.out.println("Ba: " + ba);
-					System.out.println("b: " + b);
-						
+							
 				}
 				else{
 					ba++;
@@ -159,11 +161,19 @@ public class CompositeHeuristic {
 		List<CompositeRefactoring> compositeList = new ArrayList<CompositeRefactoring>();
 
 		int i = 0;
+		
+		
+		
 		for(HashSet<Refactoring> compositeSet : composites){
             i++;
 			if (compositeSet.size() > 1) {
+				
+				List<Refactoring> refactorings = new ArrayList<Refactoring>(compositeSet);
+				
+				
+				
 				CompositeRefactoring compositeRef = new CompositeRefactoring(String.valueOf(i), 
-						                                                    new ArrayList(compositeSet), 
+						                                                    refactorings, 
 						                                                    heuristicType);
 				compositeList.add(compositeRef);
 			}
@@ -192,22 +202,43 @@ public class CompositeHeuristic {
 	private void getCommits() {
 		// TODO Auto-generated method stub
 		
+		commits = new HashMap<String, CommitHistoric>();
 		for(CommitHistoric commitHistoric : projectHistoric.getCommits()) {
 			
 			commits.put(commitHistoric.getHash(), commitHistoric);
 			
 		}
 		
+		
+		commits.entrySet().forEach( commit -> {
+			 
+			System.out.println(commit.getKey());
+			
+		});
 	}
 	
 	
 	public boolean isSameDeveloper(Commit commitRefi, Commit commitRefj){
 	    
+	   
+		
 	   CommitHistoric commitHistoricI = commits.get(commitRefi.getCommit());
 	   
 	   CommitHistoric commitHistoricJ = commits.get(commitRefj.getCommit());
+	   
+	   //System.out.println("CommiterName " + commitHistoricI);
+	   //System.out.println("CommiterName " + commitHistoricJ);
+	   
+	   if(commitHistoricI != null && commitHistoricJ != null) {
 		   
-	   return commitHistoricI.getCommitterName().equals(commitHistoricJ.getCommitterName());
+		   if(commitHistoricI.getAuthorName() != null && commitHistoricJ.getAuthorName()!= null) {
+			   
+			   return commitHistoricI.getAuthorName().equals(commitHistoricJ.getAuthorName()) &&
+					  commitHistoricI.getAuthorEmail().equals(commitHistoricJ.getAuthorEmail()) ;
+		   }
+	   }
+	   
+	   return false;
 	   
 	}
 

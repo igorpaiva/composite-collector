@@ -15,46 +15,30 @@ import inf.puc.rio.opus.composite.model.CompositeRefactoring;
 import inf.puc.rio.opus.composite.model.ProjectHistoric;
 import inf.puc.rio.opus.composite.model.Refactoring;
 
-/**
- * Hello world!
- *
- */
+
 public class CompositeCollectorMain{
 	
     public static void main( String[] args ){
-       //Recebe json 
-    	
+            	
     	ObjectMapper mapper = new ObjectMapper();
-    	
-       //Collect composites 
-       //collect commit-based 
-       //collect scope-based 
-    	
-   
     	
         try {
 			
-    			// List<Refactoring> refactorings = Arrays.asList(mapper.readValue(new File("dubbo-test.json"), Refactoring[].class));
-    		    Refactoring[] refactorings = mapper.readValue(new File("dubbo-test.json"), Refactoring[].class);
+    		    Refactoring[] refactorings = mapper.readValue(new File("couchbase-java-cliente-test.json"), Refactoring[].class);
     		  
     		    List<Refactoring> refList = Arrays.asList(refactorings);
     		    
-    		    ProjectHistoric projectHistoric =  mapper.readValue(new File("dubbo.json"), ProjectHistoric.class);
+    		    ProjectHistoric projectHistoric =  mapper.readValue(new File("couchbase-java-cliente.json"), ProjectHistoric.class);
     		    
     		    CompositeHeuristic heuristic = new CompositeHeuristic(projectHistoric);
-   
-    		    
+      
     		    List<CompositeRefactoring> compositesRangeBased = heuristic.getCompositeRangeBased(refList, projectHistoric);
-    		    mapper.writeValue(new File("dubbo-compositesRangeBased.json"), compositesRangeBased);
+    		    mapper.writeValue(new File("couchbasejc-compositesRangeBased1.json"), compositesRangeBased);
     		    
     		    List<CompositeRefactoring> compositesCommitBased = heuristic.getCommitBasedComposites(refList);
-    		    mapper.writeValue(new File("dubbo-compositesCommitBased.json"), compositesCommitBased);
-
     		    
-    		    System.out.println(refList.size());
-    		    
-    		    
-    		    
+    		    mapper.writeValue(new File("couchbasejc-compositesCommitBased1.json"), compositesCommitBased);
+    
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -7,7 +7,7 @@ import java.util.List;
 public class CompositeRefactoring {
 
 	public String id;
-	private List<Refactoring> refactorings;
+	public List<Refactoring> refactorings;
 	public String type;
 	
 	
@@ -17,6 +17,9 @@ public class CompositeRefactoring {
 		this.refactorings = refactorings;
 		this.type = type;
 	}
+	
+	
+	
 	
 	
 	

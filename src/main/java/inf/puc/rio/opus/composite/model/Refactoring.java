@@ -23,7 +23,7 @@ public class Refactoring {
 	@JsonProperty("project")
 	private String project;
 	@JsonProperty("elements")
-	private List<CodeElement> elements = null;
+	private List<CodeElement> elements;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
