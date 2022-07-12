@@ -23,22 +23,18 @@ public class CompositeCollectorMain{
     	ObjectMapper mapper = new ObjectMapper();
     	
         try {
-			
-    		    Refactoring[] refactorings = mapper.readValue(new File("couchbase-java-cliente-test.json"), Refactoring[].class);
+				String projectName = "achilles";
+    		    Refactoring[] refactorings = mapper.readValue(new File("refactorings\\" + projectName + "-refactorings.json"), Refactoring[].class);
     		  
     		    List<Refactoring> refList = Arrays.asList(refactorings);
     		    
-    		    ProjectHistoric projectHistoric =  mapper.readValue(new File("couchbase-java-cliente.json"), ProjectHistoric.class);
-    		    
+    		    ProjectHistoric projectHistoric =  mapper.readValue(new File("projects\\" + projectName + ".json"), ProjectHistoric.class);
+
     		    CompositeHeuristic heuristic = new CompositeHeuristic(projectHistoric);
       
     		    List<CompositeRefactoring> compositesRangeBased = heuristic.getCompositeRangeBased(refList, projectHistoric);
-    		    mapper.writeValue(new File("couchbasejc-compositesRangeBased1.json"), compositesRangeBased);
-    		    
-    		    List<CompositeRefactoring> compositesCommitBased = heuristic.getCommitBasedComposites(refList);
-    		    
-    		    mapper.writeValue(new File("couchbasejc-compositesCommitBased1.json"), compositesCommitBased);
-    
+    		    mapper.writeValue(new File( projectName + "-composite-rangebased.json"), compositesRangeBased);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
