@@ -23,7 +23,7 @@ public class CompositeCollectorMain{
     	ObjectMapper mapper = new ObjectMapper();
     	
         try {
-				String projectName = "achilles";
+				String projectName = "xabber-android";
     		    Refactoring[] refactorings = mapper.readValue(new File("refactorings\\" + projectName + "-refactorings.json"), Refactoring[].class);
     		  
     		    List<Refactoring> refList = Arrays.asList(refactorings);
