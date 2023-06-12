@@ -40,8 +40,8 @@ public class CompositeHeuristic {
                     for (int j = 0; j < refactorings.size(); j++) {
                         // Get class name and package name of current refactoring
 
-                        //	System.out.println(refactorings.get(i).getRefactoringId());
-                        //	System.out.println(refactorings.get(j).getRefactoringId());
+                        	System.out.println(refactorings.get(i).getRefactoringId());
+                        	System.out.println(refactorings.get(j).getRefactoringId());
                         if (refactorings.get(j) != null &&
                                 refactorings.get(i).getCurrentCommit() != null &&
                                 refactorings.get(j).getCurrentCommit() != null) {
@@ -224,8 +224,8 @@ public class CompositeHeuristic {
 
         CommitHistoric commitHistoricJ = commits.get(commitRefj.getCommit());
 
-        //System.out.println("CommiterName " + commitHistoricI);
-        //System.out.println("CommiterName " + commitHistoricJ);
+        System.out.println("CommiterName " + commitHistoricI);
+        System.out.println("CommiterName " + commitHistoricJ);
 
         if (commitHistoricI != null && commitHistoricJ != null) {
 
