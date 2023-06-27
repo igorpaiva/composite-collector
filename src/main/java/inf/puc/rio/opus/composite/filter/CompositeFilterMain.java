@@ -10,9 +10,11 @@ import org.json.JSONTokener;
 
 public class CompositeFilterMain {
     public static void main(String[] args) {
-        String inputFilePath = "fresco-composite-rangebased.json";    // Path to the input JSON file
-        String outputFilePath = "output-filtered.json";  // Path to the output JSON file
-        List<String> selectedRefactoringTypes = Arrays.asList("Extract Method", "Move Method");  // Selected refactoring types
+        String projectName = "guava";
+        String inputFileName = projectName + "-composite-rangebased";
+        String inputFilePath = inputFileName + ".json";    // Path to the input JSON file
+        String outputFilePath = inputFileName + "-filtered.json";  // Path to the output JSON file
+        List<String> selectedRefactoringTypes = Arrays.asList("Move Method");  // Selected refactoring types
 
         try {
             // Read the input JSON file
@@ -21,7 +23,7 @@ public class CompositeFilterMain {
 
             // Filter the objects based on the selected refactoring types
             JSONArray filteredArray = new JSONArray();
-            int numberOfComposites = 0;
+            int numberOfFilteredComposites = 0;
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -52,13 +54,13 @@ public class CompositeFilterMain {
                 // If the object contains all the selected types, add it to the filtered array
                 if (hasSelectedTypes) {
                     filteredArray.put(jsonObject);
-                    numberOfComposites++;
+                    numberOfFilteredComposites++;
                 }
             }
 
             // Create the output JSON object with the desired order of keys
             Map<String, Object> outputMap = new LinkedHashMap<>();
-            outputMap.put("numberOfComposites", numberOfComposites);
+            outputMap.put("numberOfFilteredComposites", numberOfFilteredComposites);
             outputMap.put("filteredObjects", filteredArray);
 
             // Convert the output map to a JSONObject

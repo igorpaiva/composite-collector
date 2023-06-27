@@ -20,7 +20,7 @@ public class CompositeCollectorMain{
     	ObjectMapper mapper = new ObjectMapper();
 
         try {
-				String projectName = "fresco";
+				String projectName = "guava";
 				File file = new File("projects/" + projectName + "-refactorings.json");
     		    Refactoring[] refactorings = mapper.readValue(new File("projects/" + projectName + "-refactorings.json"), Refactoring[].class);
 
