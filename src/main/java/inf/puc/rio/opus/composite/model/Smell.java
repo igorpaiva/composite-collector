@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -14,4 +17,8 @@ public class Smell {
     private String reason;
     private Integer startingLine;
     private Integer endingLine;
+
+    public static Stream<Smell> stream(Smell[] smells) {
+        return Arrays.stream(smells);
+    }
 }

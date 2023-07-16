@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Getter
 @Builder
@@ -16,4 +18,8 @@ import java.util.List;
 public class Method {
     private String fullyQualifiedName;
     private Smell[] smells;
+
+    public Stream<Smell> stream() {
+        return Arrays.stream(smells);
+    }
 }

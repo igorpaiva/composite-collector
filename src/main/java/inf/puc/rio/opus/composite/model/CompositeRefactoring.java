@@ -8,17 +8,26 @@ import java.util.List;
 @Getter
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class CompositeRefactoring {
 
 	public String id;
+
 	public List<Refactoring> refactorings;
 	public String type;
 
-//	public CompositeRefactoring(String id, List<Refactoring> refactorings, String type) {
-//
-//		this.id = id;
-//		this.refactorings = refactorings;
-//		this.type = type;
+	public CompositeRefactoring(String id, List<Refactoring> refactorings, String type) {
+
+		this.id = id;
+		this.refactorings = refactorings;
+		this.type = type;
 //	}
+//
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+	}
 }

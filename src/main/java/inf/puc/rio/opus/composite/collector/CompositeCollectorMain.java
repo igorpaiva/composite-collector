@@ -20,13 +20,13 @@ public class CompositeCollectorMain{
     	ObjectMapper mapper = new ObjectMapper();
 
         try {
-				String projectName = "guava";
-				File file = new File("projects/" + projectName + "-refactorings.json");
-    		    Refactoring[] refactorings = mapper.readValue(new File("projects/" + projectName + "-refactorings.json"), Refactoring[].class);
+				String projectName = "mybatis-3";
+				File file = new File("/home/igor/Documentos/Mestrado/0_outputs/composite-refactoring-collector/" + projectName + "-refactorings.json");
+    		    Refactoring[] refactorings = mapper.readValue(file, Refactoring[].class);
 
     		    List<Refactoring> refList = Arrays.asList(refactorings);
 
-    		    ProjectHistoric projectHistoric =  mapper.readValue(new File("projects/" + projectName + ".json"), ProjectHistoric.class);
+    		    ProjectHistoric projectHistoric =  mapper.readValue(new File("/home/igor/Documentos/Mestrado/0_outputs/MSR/" + projectName + "-MSR.json"), ProjectHistoric.class);
 
     		    CompositeHeuristic heuristic = new CompositeHeuristic(projectHistoric);
 
