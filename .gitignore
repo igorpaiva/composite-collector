@@ -3,5 +3,9 @@
 .settings
 ./composites
 ./smells
-/target
-/target/*
+**/target
+**/target/classes
+./target
+./target/
+target
+target/
